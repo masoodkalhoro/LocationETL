@@ -1,0 +1,53 @@
+Logical conclusion:
+
+In POIList.csv file the POI1 and POI2 are same that's why results are same from them.   
+
+POIID|Location name     |Radius     | Count | density | density(mapped)
+POI4 |Upper North River	|774.473157 | 369   | 0.000196| -10.000000
+POI2 |Edmonton, Calgary	|800.120561 | 7867  | 0.003912|	7.225043
+POI1 |Edmonton, Calgary	|800.120561 | 7867  | 0.003912| 7.225043
+POI3 |Montreal(mid city)|773.254718 | 8472  | 0.004510|	10.000000
+
+Note location name is find from google maps manualy by giving their lat and log from POI file. 
+Before data analysis I have assigned nearest POIs to each data sample requests and outliers have been removed. I believe my results seem logical becuase low dense location (Upper North River) has small count of requests and high dense locatons (Montreal(mid city) and Edmonton, Calgary) has more count of requests. 
+
+Further I have extracted the hour,day, month and year from TimeSet field to see the effect on each POIs. Describe method suggested that only hour has variation that's the reason i have chosed to worked on hour. With the help of random forest model and by applying get_dummies method on the dataset I got top 30 results are as follows:
+
+  	features 	Score
+642 	Province_ON 	0.347608
+641 	Province_AB 	0.122107
+640 	Longitude 	0.091538
+639 	Latitude 	0.057443
+638 	Province_QC 	0.055242
+637 	City_Calgary 	0.044155
+636 	City_Toronto 	0.026889
+635 	City_Edmonton 	0.022081
+634 	Province_BC 	0.016326
+633 	City_Mississauga 	0.015272
+632 	Province_NS 	0.015045
+631 	Province_NB 	0.014918
+630 	City_Saskatoon 	0.014737
+629 	City_Montréal 	0.013869
+628 	Province_MB 	0.012641
+627 	Province_SK 	0.010116
+626 	min(Poidistance) 	0.009039
+625 	City_Ottawa 	0.008055
+624 	City_Moncton 	0.007552
+623 	Province_NL 	0.005145
+622 	City_Scarborough 	0.004904
+621 	City_North York 	0.004178
+620 	City_Vancouver 	0.004142
+619 	City_Brampton 	0.003558
+618 	City_Burlington 	0.002916
+617 	City_Winnipeg 	0.002738
+616 	City_Halifax 	0.002696
+615 	City_Richmond 	0.002366
+614 	City_London 	0.002327
+613 	City_Thunder Bay 	0.002248
+
+As can be seen from the above results the province of the POI has the highest effect on determining  the POI related to each request. Next would be their geographical location (Latitude, Longitude, and their distance to POI). It is seen from the above results that the city related to each POI has a lower effect compared to the effect of the province. 
+
+As above results shows that the most effective factors on POIs are as below:  
+1. POI’s Province 
+2. POI’s Location 
+3. POI’s City
